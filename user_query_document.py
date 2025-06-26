@@ -208,6 +208,7 @@ async def handle_query(
     )
 
     # Stream and collect the response
+    print("\n------------- AI AGENT RESPONSE -------------\n")
     response = ""
     async for piece in stream_llm_responses(llm, request):
         print(piece, end="")

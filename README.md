@@ -74,7 +74,7 @@ OPENAI_API_QUERY_KEY=sk-proj-IiW2AS0ECm7JUpDa098kGyTc_pOCCUUh7_m4UI3wHBUwtfZ2RnB
 
 You can download the *Attracting and Retaining Adolescent Patients* PDF here (if you want to test `pdf_parser_indexer.py`): https://drive.google.com/drive/folders/1Kgctv62f9WrOI9ZydvRtXTjeoLObhkcO
 
-To chat with the AI agent, run the following scripts from the command line:
+**To chat with the AI agent, run the following scripts from the command line:**
 
 ```
 python3 bm25_tokenizer.py
@@ -90,4 +90,4 @@ python3 user_query_document.py
 
 ## Known Issues
 
-- `pdf_parser_indexer.py` does not reliably extract text from the PDF or index chunks by heading and subheading, so some manual editing was required to create `structured_text.json`. Use this file for the vector embedder and BM25 tokenizer.
+- `pdf_parser_indexer.py` does not reliably extract text from the PDF or index chunks by heading and subheading, so some manual editing was required to create `structured_text.json`. This JSON file is used for the vector embedder and BM25 tokenizer.
