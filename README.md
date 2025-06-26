@@ -16,7 +16,7 @@ Working on a technical explanation due this Friday!!!
 pip3 install -r requirements.txt
 ```
 
-###Dependencies
+### Dependencies
 
 - `requests` – fetch data from the web
 - `pdfminer.six` – parse PDFs
