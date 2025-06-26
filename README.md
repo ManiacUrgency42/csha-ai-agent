@@ -7,6 +7,7 @@
 - [Installation and Usage](#installation-and-usage)
   - [Dependencies](#dependencies)
   - [Environment Variables](#environment-variables)
+- [Known Issues](#known-issues)
   
 ## About
 
