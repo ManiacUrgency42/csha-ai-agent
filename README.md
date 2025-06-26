@@ -9,9 +9,4 @@ A simple AI agent with a CLI chat interface that answers questions about the
 
 ## RAG Architecture
 
-<p align="center">
-  <img
-    alt="Diagram: RAG pipeline tech stack"
-    src="assets/images/rag_pipeline_tech_stack_architecture.png"
-    width="600">
-</p>
+![RAG architecture](assets/images/rag_pipeline_tech_stack_architecture.png)
