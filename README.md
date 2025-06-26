@@ -1,5 +1,4 @@
 # csha-ai-agent
-CSHA AI Agent RAG Pipeline
 
 ## About
 
@@ -10,3 +9,4 @@ A simple AI agent with a CLI chat interface that answers questions about the
 ## RAG Architecture
 
 ![RAG architecture](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/rag_pipeline_tech_stack_architecture_diagram.png)
+
