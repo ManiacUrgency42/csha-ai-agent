@@ -1,0 +1,8 @@
+nltk==3.9.1
+requests==2.32.4
+rank-bm25==0.2.2
+pdfminer.six==20250506
+pinecone==7.2.0
+langchain==0.3.26
+langchain-openai==0.3.25
+langchain-pinecone==0.2.8
