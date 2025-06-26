@@ -1,5 +1,13 @@
 # csha-ai-agent
 
+## Table of Contents
+
+- [About](#about)
+- [RAG Architecture](#rag-architecture)
+- [Installation and Usage](#installation-and-usage)
+  - [Dependencies](#dependencies)
+  - [Environment Variables](#environment-variables)
+  
 ## About
 
 This project provides a simple AI agent with a CLI chat interface that answers questions about the [*Attracting and Retaining Adolescent Patients* PDF](https://drive.google.com/drive/folders/1Kgctv62f9WrOI9ZydvRtXTjeoLObhkcO) supplied by the California School‑Based Health Alliance (CSHA), a non‑profit organization. The agent is built on a Retrieval‑Augmented Generation (RAG) framework.
