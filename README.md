@@ -16,7 +16,7 @@ This project provides a simple AI agent with a CLI chat interface that answers q
 
 ## RAG Architecture
 
-![RAG architecture](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/rag_pipeline_tech_stack_architecture_diagram.png)
+![RAG architecture](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/rag_based_system_architecture.png)
 
 Working on a technical explanation due this Friday!!!
 
@@ -90,4 +90,4 @@ python3 user_query_document.py
 
 ## Known Issues
 
-- `pdf_parser_indexer.py` does not reliably extract text from the PDF or index chunks by heading and subheading, so some manual editing was required to create `structured_text.json`. This JSON file is used for the vector embedder and BM25 tokenizer.
+- `pdf_parser_indexer.py` does not reliably extract text from the PDF or index chunks by heading and subheading because of one-off edge cases, so some manual editing was required to create `structured_text.json`. This JSON file is used for the vector embedder and BM25 tokenizer. A future upgrade is to use a more robust ML-based PDF parser—though we’ll need to weigh the accuracy gains against added development time.
