@@ -7,6 +7,7 @@
 - [Installation and Usage](#installation-and-usage)
   - [Dependencies](#dependencies)
   - [Environment Variables](#environment-variables)
+  - [Run the Agent](#run-the-agent)
 - [Known Issues](#known-issues)
   
 ## About
@@ -68,6 +69,8 @@ PINECONE_API_KEY=pcsk_3c1tKo_QmNHRR9YXWiqXwD6dPdYPhPAgquiu7utSpfUaBu9mMqkgNnSQQT
 OPENAI_API_EMBEDDINGS_KEY=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
 OPENAI_API_QUERY_KEY=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
 ```
+
+### Run the Agent
 
 You can download the *Attracting and Retaining Adolescent Patients* PDF here (if you want to test `pdf_parser_indexer.py`): https://drive.google.com/drive/folders/1Kgctv62f9WrOI9ZydvRtXTjeoLObhkcO
 
