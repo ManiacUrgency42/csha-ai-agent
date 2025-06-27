@@ -1,4 +1,6 @@
-# csha-ai-agent
+# CSHA AI Agent
+
+![Static Badge](https://img.shields.io/badge/python_version-3.9.6-blue)
 
 ## Table of Contents
 
