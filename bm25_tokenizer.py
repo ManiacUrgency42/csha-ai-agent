@@ -12,6 +12,7 @@ from rank_bm25 import BM25Okapi
 # Ensure required NLTK data is available
 nltk.download('stopwords', quiet=True)
 nltk.download('punkt', quiet=True)
+nltk.download('punkt_tab', quiet=True)
 
 # Load English stopwords
 stop_words: set[str] = set(stopwords.words('english'))
