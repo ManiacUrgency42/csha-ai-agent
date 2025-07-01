@@ -97,13 +97,17 @@ BM25 adds two parameters.
 **TF Saturation (parameter k₁)**
 
 Instead of letting TF grow linearly, BM25 transforms it with,
+
 ![BM25 Term Frequency Saturation Parameter](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/bm25_term_frequency_saturation_parameter.png)
+
 so that as a term’s frequency increases, its incremental impact tapers off around k₁ + 1.
 
 **Length Normalization (parameter b)**
 
 Adjusts for document length by computing,
+
 ![BM25 Document Length Normalization Parameter](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/bm25_document_length_normalization_parameter.png)
+
 where |*d*| is the length of document *d* and *avgdl* is the average document length. Terms in longer documents get down-weighted, and those in shorter documents get up-weighted, controlled by *b*.
 
 #### 1.3.2 NLTK Tokenizer
