@@ -189,7 +189,7 @@ name, famous, speech, MLK, title, designation, well-known, renowned, address, ta
 
 #### 2.2.2 Rank BM25
 
-Uses Okapi BM25 to retrieve the top “k” most relevant document “id” keys.
+Uses Okapi BM25 to retrieve the top “k” most relevant document and returns their “id” keys.
 
 ## 3 Prompt Augmentation
 
