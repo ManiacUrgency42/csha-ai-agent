@@ -30,7 +30,7 @@ Parsers and Indexers work together closely and can often be combined into one Py
 
 Parsers extract text and metadata from data formats such as PDF, images, tables, and charts. Choosing a parsing tool depends on the data format and the complexity of the data (i.e., does the data format contain large tables, pie-charts, mathematical formulas that need to be extracted?).
 
-#### <u>Example</u>
+##### <u>Example</u>
 
 Standard-format PDFs can be handled with rule-based tools such as PDFminer.six, while unstructured PDFs—where text appears in tables or images—often require ML-based tools like PaddleOCR. ML approaches are more robust but demand greater setup effort and expertise compared to simpler methods.
 
