@@ -45,6 +45,17 @@ This project provides a simple AI agent with a CLI chat interface that answers q
 - [4 Generation](#4-generation)
   - [4.1 Models](#41-models)
 
+## What is LangChain?
+
+[LangChain](https://python.langchain.com/docs/introduction/) is a Python framework that lets you build LLM-powered applications by wiring together a set of modular components. For exmaple:
+
+- PromptTemplates: define reusable, fill-in-the-blank prompts so you never hand-craft raw strings.
+
+- Chains: sequence one or more steps (LLM calls, data transforms, retrievals, etc.) into a single pipeline.
+
+- Retrievers: handle semantic lookup of relevant text chunks via embeddings, so your model only sees what matters.
+
+- Memory: maintain and recall conversational or application state across calls.
 
 ## 1 Backend
 
@@ -84,7 +95,7 @@ We are currently using OpenAI’s embedding model: `text-embedding-large-3`.
 
 A Vector Database is a specialized database that has built-in mathematical functions for storing and manipulating vector embeddings in a high-dimensional space.
 
-We are currently using `Pinecone Vector Database` because of the easy setup and developer-friendly documentation.
+We are currently using [Pinecone Vector Database](https://docs.pinecone.io/guides/get-started/overview) because of the easy setup and developer-friendly documentation.
 
 Before the vectors are upserted to Pinecone VDB, a unique “id” key for each text chunk is generated. This “id” key gets stored in the text chunk’s JSON object and the corresponding text embedding, so during the retrieval process the key is returned, and used to map to the text chunk. (This is explained in more detail in the Retrieval section.)
 
@@ -172,7 +183,7 @@ We leverage LangChain’s prompt templates to assemble the messages sent to the 
 
 ### 4.1 Models
 
-Large language models (LLMs) serve as another modular component in our system. Choosing a proprietary LLM lets you skip managing hosting infrastructure and inference costs, since the provider handles all of that. Popular options include OpenAI, Anthropic, and Google.
+Large language models (LLMs) serve as another modular component in our system. Choosing a proprietary LLM lets you skip managing hosting infrastructure and inference costs, since the provider handles all of that. Popular options include [OpenAI](https://platform.openai.com/docs/overview), [Anthropic](https://docs.anthropic.com/en/docs/intro), and [Google](https://ai.google.dev/gemini-api/docs).
 
 We are using OpenAI’s `gpt-4.1`, the most intelligent but expensive OpenAI frontier model.
 
