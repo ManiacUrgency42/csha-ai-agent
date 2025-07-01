@@ -22,11 +22,11 @@ This project provides a simple AI agent with a CLI chat interface that answers q
 
 ## Backend
 
-## Data Processing
+### Data Processing
 
 Parsers and Indexers work together closely and can often be combined into one Python file.
 
-### Parsers
+#### Parsers
 
 Parsers extract text and metadata from data formats such as PDF, images, tables, and charts. Choosing a parsing tool depends on the data format and the complexity of the data (i.e., does the data format contain large tables, pie-charts, mathematical formulas that need to be extracted?).
 
@@ -38,7 +38,7 @@ Standard-format PDFs can be handled with rule-based tools such as PDFminer.six, 
 
 Indexers take the extracted text and its metadata, then organize the data into a format such as JSON.
 
-#### <u>Example</u>
+##### <u>Example</u>
 
 We first identify headings in the PDF—either by looking at their on-page positions (coordinates) or by using an ML model trained to recognize header text. Once we know each section and subsection heading, we split the document into text chunks based on those headings. Finally, we nest those chunks in a hierarchical structure so that every paragraph is stored under the correct section or subsection. This ensures that the text is chunked and stored logically to improve retrieval performance.
 
@@ -46,17 +46,17 @@ We first identify headings in the PDF—either by looking at their on-page posit
 [Insert a JSON snippet]
 ```
 
-## Vector Embedder
+### Vector Embedder
 
 Vector embeddings are fixed-length arrays of numbers that capture the semantic meaning of text (words, sentences, paragraphs).
 
-### Embedding Model
+#### Embedding Model
 
 An embedding model creates vector embeddings. We then store these vector embeddings into a Vector Database for retrieval later on.
 
 We are currently using OpenAI’s embedding model: `text-embedding-large-3`.
 
-### Vector Database
+#### Vector Database
 
 A Vector Database is a specialized database that has built-in mathematical functions for storing and manipulating vector embeddings in a high-dimensional space.
 
@@ -64,7 +64,7 @@ We are currently using `Pinecone Vector Database` because of the easy setup and 
 
 Before the vectors are upserted to Pinecone VDB, a unique “id” key for each text chunk is generated. This “id” key gets stored in the text chunk’s JSON object and the corresponding text embedding, so during the retrieval process the key is returned, and used to map to the text chunk. (This is explained in more detail in the Retrieval section.)
 
-## Bm25 Tokenizer
+### Bm25 Tokenizer
 
 Okapi BM25 Retrieval is a keyword-based document retriever that improves on the Term Frequency-Inverse Document Frequency (TF-IDF) ranking algorithm. Term Frequency is the raw count of how many times word *t* appears in document *d*. Inverse Document Frequency is the number of documents *N* divided by the number of documents in which term *t* appears at least once *n<sub>t</sub>*. Therefore, more frequent words such as “the”, “and”, and “is” get less weight. The score of the document is calculated by multiplying TF by IDF.
 
@@ -83,23 +83,23 @@ Given a query **Q**, containing keywords *q₁,…,qₙ*, the BM25 score of a do
 - **|D|**: The length of document D (e.g., word count).
 - **avgdl**: The average document length across the corpus (same units as |D|).
 
-### Why BM25 instead of TF-IDF?
+#### Why BM25 instead of TF-IDF?
 
 BM25 adds two parameters.
 
-#### TF Saturation (parameter k₁)
+##### TF Saturation (parameter k₁)
 
 Instead of letting TF grow linearly, BM25 transforms it so that as a term’s count increases, its incremental impact tapers off around k₁ + 1.
 
-#### Length Normalization (parameter b)
+##### Length Normalization (parameter b)
 
 Adjusts for document length by computing normalization where |*d*| is the length of document *d* and *avgdl* is the average document length. Terms in longer documents get down-weighted, and those in shorter documents get up-weighted, controlled by *b*.
 
-## NLTK Tokenizer
+### NLTK Tokenizer
 
 The NLTK Tokenizer splits the text document into tokens that are the size of a word or part of a word. These tokenized documents are then stored in the Pickle index.
 
-## Pickle Index
+### Pickle Index
 
 Pickle is a Python module that implements binary protocols for serializing and deserializing a Python object structure. Pickle is used instead of JSON because it can store complex Python objects like NumPy arrays and offers faster read/write operations due to its compact binary format. This enables lower-latency BM25 retrieval.
 
