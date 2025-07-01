@@ -20,6 +20,8 @@ This project provides a simple AI agent with a CLI chat interface that answers q
 
 ![RAG architecture](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/rag_based_system_architecture.png)
 
+## Components
+
 - [1 Backend](#1-backend)
   - [1.1 Data Processing](#11-data-processing)
     - [1.1.1 Parsers](#111-parsers)
