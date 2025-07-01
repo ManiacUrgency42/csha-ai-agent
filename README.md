@@ -79,11 +79,13 @@ Indexers take the extracted text and its metadata, then organize the data into a
 
 We first identify headings in the PDF—either by looking at their on-page positions (coordinates) or by using an ML model trained to recognize header text. Once we know each section and subsection heading, we split the document into text chunks based on those headings. Finally, we nest those chunks in a hierarchical structure so that every paragraph is stored under the correct section or subsection. This ensures that the text is chunked and stored logically to improve retrieval performance.
 
-![Example Structured JSON](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/example_structured_json.png)
+<img src="csha-ai-agent/blob/main/assets/images/example_structured_json.png" width="300"/>
 
 ### 1.2 Vector Embedder
 
 Vector embeddings are fixed-length arrays of numbers that capture the semantic meaning of text (words, sentences, paragraphs).
+
+![Example Vector Embeddings](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/example_vector_embeddings.png)
 
 #### 1.2.1 Embedding Model
 
@@ -102,6 +104,23 @@ Before the vectors are upserted to Pinecone VDB, a unique “id” key for each 
 ### 1.3 Bm25 Tokenizer
 
 Okapi BM25 Retrieval is a keyword-based document retriever that improves on the Term Frequency-Inverse Document Frequency (TF-IDF) ranking algorithm. Term Frequency is the raw count of how many times word *t* appears in document *d*. Inverse Document Frequency is the number of documents *N* divided by the number of documents in which term *t* appears at least once *n<sub>t</sub>*. Therefore, more frequent words such as “the”, “and”, and “is” get less weight. The score of the document is calculated by multiplying TF by IDF.
+
+Given a query Q, containing keywords q₁,...,qₙ, the BM25 score of a document D is:
+
+![Okapi BM25 Scoring Formula](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/okapi_bm25_retrieval_scoring_formula.png)
+
+- score(D, Q): The total BM25 score of document D for query Q.
+- D: The document being scored.
+- Q: The query, viewed as a sequence of terms (q₁, q₂, …, qₙ).
+- n: The number of terms in the query Q.
+- i: The index of the current query term (1 through n).
+- qᵢ: The i-th term in the query.
+- IDF(qᵢ): Inverse document frequency of qᵢ (down-weights common terms).
+- f(qᵢ, D): The raw count of how many times qᵢ appears in D.
+- k₁: TF-saturation parameter (≥ 0) that controls how quickly term frequency plateaus.
+- b: Length-normalization parameter (0 ≤ b ≤ 1) that adjusts for document length.
+- |D|: The length of document D (e.g. word count).
+- avgdl: The average document length across the corpus (same units as |D|).
 
 #### 1.3.1 Why BM25 instead of TF-IDF?
 
@@ -147,8 +166,9 @@ When the user feeds in their query, the input needs to be converted to a vector 
 
 #### 2.1.2 Similarity Comparison Method
 
-![Cosine and Euclidean Metrics](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/cosine_and_euclidean_metrics.png)
 To retrieve the most relevant documents from Pinecone VDB we use semantic similarity, measuring how closely related two data points are in meaning or context. There are many semantic similarity metrics including cosine similarity and Euclidean distance. This script uses cosine similarity because it is not affected by the magnitude of the vectors (which can represent the text length or word frequency).
+
+![Cosine and Euclidean Metrics](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/cosine_and_euclidean_metrics.png)
 
 ### 2.2 Bm25 Retriever
 
