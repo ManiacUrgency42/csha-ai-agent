@@ -156,7 +156,7 @@ The NLTK Tokenizer splits the text document into tokens that are the size of a w
 
 #### 1.3.3 Pickle Index
 
-Pickle is a Python module that implements binary protocols for serializing and deserializing a Python object structure. Pickle is used instead of JSON because it can store complex Python objects like NumPy arrays and offers faster read/write operations due to its compact binary format. This enables lower-latency BM25 retrieval.
+[Pickle](https://docs.python.org/3/library/pickle.html) is a Python module that implements binary protocols for serializing and deserializing a Python object structure. Pickle is used instead of JSON because it can store complex Python objects like NumPy arrays and offers faster read/write operations due to its compact binary format. This enables lower-latency BM25 retrieval.
 
 > **Note:** If we have too many documents, we can consider scaling to a production database that supports BM25 retrieval.
 
