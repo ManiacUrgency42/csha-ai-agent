@@ -79,7 +79,7 @@ Text in standard-format PDFs can be extracted with rule-based tools such as PDFm
 
 #### 1.1.2 Indexers
 
-Indexers take the extracted text and its metadata, then organize the data into a format such as JSON.
+Indexers take the extracted text and its metadata, then organize the data into a data format such as JSON.
 
 **Example**    
 
