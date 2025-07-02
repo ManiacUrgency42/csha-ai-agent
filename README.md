@@ -287,6 +287,7 @@ The final step of RAG is AI response generation. The completed prompt template i
 
 **Example**
 
+Stdout:
 ```python
 """
 ------------- AI AGENT RESPONSE -------------
