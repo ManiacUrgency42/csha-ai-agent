@@ -107,7 +107,7 @@ A Vector Database is a specialized database that has built-in mathematical funct
 
 We are currently using [Pinecone Vector Database](https://docs.pinecone.io/guides/get-started/overview) because of the easy setup and developer-friendly documentation.
 
-Before the vectors are upserted to Pinecone VDB, a unique “id” key for each text chunk is generated. This “id” key gets stored in the text chunk’s JSON object and the corresponding text embedding, so during the retrieval process the key is returned, and used to map to the text chunk. (This is explained in more detail in the Retrieval section.)
+Before the vectors are upserted to Pinecone VDB, a unique “id” key for each text chunk is generated. This “id” key gets stored in the text chunk’s JSON object and the corresponding text embedding, so during the retrieval process the key is returned, and used to map to the text chunk in the JSON. Once the text chunks are retrieved from the JSON, they are combined and added to the user's query as context. 
 
 ### 1.3 BM25 Tokenizer
 
