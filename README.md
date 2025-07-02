@@ -77,7 +77,7 @@ Indexers take the extracted text and its metadata, then organize the data into a
 
 **Example**    
 
-We first identify headings in the PDF—either by looking at their on-page positions (coordinates) or by using an ML model trained to recognize header text. Once we know each section and subsection heading, we split the document into text chunks based on those headings. Finally, we nest those chunks in a hierarchical structure so that every paragraph is stored under the correct section or subsection. This ensures that the text is chunked and stored logically to improve retrieval performance.
+We first identify headings in the PDF—either by looking at their on-page positions (coordinates) or by using an ML model trained to recognize header text. Once we know each section and subsection heading, we split the document into text chunks based on those headings. Finally, we nest those chunks in a hierarchical structure so that every paragraph is stored under the correct section or subsection. This ensures that the text is stored logically to improve retrieval performance.
 
 ![Example Structured JSON](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/example_structured_json.png)
 
