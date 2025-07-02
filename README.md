@@ -306,7 +306,7 @@ Large language models (LLMs) serve as another modular component in our system. C
 
 We are using OpenAI’s `gpt-4.1`, the most intelligent but expensive OpenAI frontier model.
 
-> **Note:** Choosing the optimal LLM is a research task that requires understanding the cost-intelligence trade-off for specific tasks.
+> **Note:** Choosing the optimal LLM is a research problem that requires understanding the cost-intelligence trade-off for specific tasks.
 
 # Installation and Usage
 
