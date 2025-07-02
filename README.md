@@ -71,7 +71,7 @@ Parsers and Indexers work together closely and can often be combined into one Py
 
 #### 1.1.1 Parsers
 
-Parsers extract text and metadata from data formats such as PDF, images, tables, and charts. Choosing a parsing tool depends on the data format and the complexity of the data (i.e., does the data format contain large tables, pie-charts, mathematical formulas that need to be extracted?).
+Parsers extract text and metadata from data formats such as PDF, images, tables, and charts. Choosing a parsing tool depends on the data format and the complexity of the data (i.e., Does the data format contain large tables, pie-charts, mathematical formulas that need to be extracted?).
 
 **Example**
 
