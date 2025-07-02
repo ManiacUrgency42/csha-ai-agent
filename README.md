@@ -193,6 +193,14 @@ Uses Okapi BM25 to retrieve the top “k” most relevant document and returns t
 
 ## 3 Prompt Augmentation
 
+Context Engineering over Prompt Engineering.
+
+`
+“People associate prompts with short task descriptions you'd give an LLM in your day-to-day use. When in every industrial-strength LLM app, context engineering is the delicate art and science of filling the context window with just the right information for the next step. Science because doing this right involves task descriptions and explanations, few shot examples, RAG, related (possibly multimodal) data, tools, state and history, compacting [...] Doing this well is highly non-trivial. And art because of the guiding intuition around LLM psychology of people spirits.”
+
+-- Andrej Karpathy
+`
+
 ### 3.1 Prompt Templates
 
 We leverage LangChain’s prompt templates to assemble the messages sent to the language model. These templates are both modular and reusable, so you can dynamically switch to a new prompt template, insert the user’s query, and any contextual information before invoking the LLM for the final response.
