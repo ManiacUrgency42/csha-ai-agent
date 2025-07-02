@@ -61,7 +61,9 @@ This project provides a simple AI agent with a CLI chat interface that answers q
 
 ## 1 Backend
 
-The backend handles data processing and storage. When working with large-scale data, organizing it logically in a data store can significantly improve retrieval accuracy and reduce latency. For vector retrieval, logically organizing data into well-structured chunks with metadata allows for more accurate embeddings, efficient ID-to-text mapping, and fast metadata filtering. For BM25 keyword retrieval, breaking text into logical chunks ensures that word counts are calculated within the correct context, which improves match quality, and makes it faster to search only the most relevant parts of the data.
+The backend handles data processing and storage. When working with large-scale data, organizing it logically in a data store can significantly improve retrieval accuracy and reduce latency. 
+
+For vector retrieval, logically organizing data into well-structured chunks with metadata allows for more accurate embeddings, efficient ID-to-text mapping, and fast metadata filtering. For BM25 keyword retrieval, breaking text into logical chunks ensures that word counts are calculated within the correct context, which improves match quality, and makes it faster to search only the most relevant parts of the data.
 
 ### 1.1 Data Processing
 
