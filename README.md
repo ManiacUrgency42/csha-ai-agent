@@ -1,4 +1,4 @@
-![Header](./github-header-image.png)
+![Header](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/github-header-image.png)
 
 ![Static Badge](https://img.shields.io/badge/python_version-3.9.6-blue)
 
