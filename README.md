@@ -93,6 +93,8 @@ Vector embeddings are fixed-length arrays of numbers that capture the semantic m
 
 ![Example Vector Embeddings](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/example_vector_embeddings.png)
 
+*2D Principal Component Analysis (PCA) projection of word embeddings. Five different word clusters are shown. By Dingcheng Li.*
+
 #### 1.2.1 Embedding Model
 
 An embedding model creates vector embeddings. We then store these vector embeddings into a Vector Database for retrieval later on.
