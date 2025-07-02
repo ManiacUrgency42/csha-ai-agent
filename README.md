@@ -180,6 +180,7 @@ else:
   print("bm25_docs: ", bm25_docs)
 ```
 
+Stdout:
 ```python
 """
 Text Document: 
