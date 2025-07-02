@@ -1,6 +1,7 @@
 ![Header](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/github-header-image.png)
 
 ![Static Badge](https://img.shields.io/badge/python_version-3.9.6-blue)
+![Static Badge](https://img.shields.io/badge/OS-macOS%2C%20windows-blue)
 
 # Table of Contents
 
