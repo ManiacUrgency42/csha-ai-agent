@@ -210,7 +210,7 @@ When the user submits their query, the input needs to be converted to a vector s
 
 #### 2.1.2 Similarity Comparison Method
 
-To retrieve the most relevant documents from Pinecone VDB we use semantic similarity, measuring how closely related two data points are in meaning or context. There are many semantic similarity metrics including cosine similarity and Euclidean distance. This script uses cosine similarity because it is not affected by the magnitude of the vectors (which can represent the text length or word frequency).
+To retrieve the most relevant documents from Pinecone VDB we use semantic similarity, measuring how closely related two data points are in meaning or context. There are many semantic similarity metrics including **cosine similarity** and **Euclidean distance**. This script uses cosine similarity because it is not affected by the magnitude of the vectors (which can represent the text length or word frequency).
 
 ![Cosine and Euclidean Metrics](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/cosine_and_euclidean_metrics.png)
 
