@@ -101,7 +101,7 @@ A Vector Database is a specialized database that has built-in mathematical funct
 
 We are currently using [Pinecone Vector Database](https://docs.pinecone.io/guides/get-started/overview) because of the easy setup and developer-friendly documentation.
 
-Before the vectors are upserted to Pinecone VDB, a unique “id” key for each text chunk is generated. This “id” key gets stored in the text chunk’s JSON object and the corresponding text embedding, so during the retrieval process the key is returned, and used to map to the text chunk in the JSON. Once the text chunks are retrieved, they are combined and added to the user's query as context. 
+Before the vectors are upserted to Pinecone VDB, a unique “id” key for each text chunk is generated. This “id” key gets stored in the text chunk’s JSON object and the corresponding text embedding, so during the retrieval process the key is returned, and used to map to the text chunk in the JSON. Once the text chunks are retrieved from the JSON, they are combined and added to the user's query as context. 
 
 ### 1.3 Bm25 Tokenizer
 
@@ -156,7 +156,7 @@ Pickle is a Python module that implements binary protocols for serializing and d
 
 ## 2 Retrieval
 
-When a user submits a query to the chat interface, the system augments the prompt with relevant content using one of two retrieval methods: **vector-based retrieval** or **BM25 keyword retrieval**. Both retrievers return the top “k” documents' “id” keys. These “id”s are used to map to each document’s JSON object, so we can obtain the metadata along with the text chunk. (Pinecone VDB can only return one text field, either an “id” or “text_chunk”, so in order to access the metadata we use an “id” key for mapping.) Once the top "k" documents are retrieved, they are combined and added to the user's query as context. Our code organizes the retrieval logic into a modular function, so you can easily switch between vector retrieval and BM25 retrieval as needed.
+When a user submits a query to the chat interface, the system augments the prompt with relevant content using one of two retrieval methods: **vector-based retrieval** or **BM25 keyword retrieval**. Both retrievers return the top “k” documents' “id” keys. These “id”s are used to map to each document’s JSON object, so we can obtain the metadata along with the text chunk. (Pinecone VDB can only return one text field, either an “id” or “text_chunk”, so in order to access the metadata we use an “id” key for mapping.) Once the top "k" documents text chunks are retrieved from the JSON, they are combined and added to the user's query as context. Our code organizes the retrieval logic into a modular function, so you can easily switch between vector retrieval and BM25 retrieval as needed.
 
 > **Note:** Choosing the best retrieval strategy is an ongoing research effort, as there are numerous retrieval techniques to explore—hybrid approaches, which blend the semantic power of vector embeddings with the precision of BM25 keyword scoring, are just one example.
 
