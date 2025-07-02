@@ -248,9 +248,49 @@ We concatenate the results from the retrieval and add them as part of the contex
 
 We leverage LangChain’s prompt templates to assemble the messages sent to the language model. These templates are both modular and reusable, so you can dynamically switch to a new prompt template, insert the user’s query, and any contextual information before invoking the LLM for the final response.
 
+**Example**
+
+```python
+EXAMPLE_CITATION_TEMPLATE = """
+You are a helpful AI assistant that answers using only the provided document snippets. Follow these rules:
+
+1. For each fact you use, cite its source by assigning it a **sequential number** in brackets—first unique source is [1], then [2], etc.  
+2. If you use the same snippet again, reuse its original number.  
+3. Never invent or skip numbers.
+
+Answer here with your citations inline.
+
+References:
+[1] 2.1 Overview of Topic A
+[2] 3 Key Findings on Topic B
+
+This is the user query:
+```{user_query}```
+
+Here is the context:
+```{context}```
+"""
+```
+
 > **Note: (More Advanced)** Context engineering techniques such as defining the system role, adding delimiters, and providing example I/Os were used to improve the LLM’s response. Better context engineering lets less powerful, lower-cost models match the performance of more expensive ones.
 
 ## 4 Generation
+
+The final step of RAG is AI response generation. The completed prompt template is sent to an API (e.g. OpenAI’s API), which passes it as input to the AI model, and the model’s output is returned to the user.
+
+**Example**
+
+```python
+"""
+------------- AI AGENT RESPONSE -------------
+
+To retain adolescent patients, it is important to create a youth-centered and adolescent-friendly environment where young people feel included and empowered in their healthcare experience. This involves ensuring that staff are committed to adolescent-friendly care and that visits are informative and memorable, which can positively influence future engagement with healthcare services [1]. Additionally, hiring healthcare providers who are trained in adolescent health and have experience working with youth can make visits more comfortable and improve communication and understanding, further supporting retention [2].
+
+        References:
+        [1] 8 A Commitment to Adolescent-Friendly Care
+        [2] 4.1 Hire Health Care Providers Who Have Experience with Youth
+"""
+```
 
 ### 4.1 Models
 
