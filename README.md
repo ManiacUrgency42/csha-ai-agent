@@ -75,7 +75,7 @@ Parsers extract text and metadata from data formats such as PDF, images, tables,
 
 **Example**
 
-Standard-format PDFs can be handled with rule-based tools such as PDFminer.six, while unstructured PDFs—where text appears in tables or images—often require ML-based tools like PaddleOCR. ML approaches are more robust but demand greater setup effort and expertise compared to simpler methods.
+Text in standard-format PDFs can be extracted with rule-based tools such as PDFminer.six, while unstructured PDFs—where text appears in tables or images—often require ML-based tools like PaddleOCR. ML approaches are more robust but demand greater setup effort and expertise compared to simpler methods.
 
 #### 1.1.2 Indexers
 
