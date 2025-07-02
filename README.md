@@ -197,7 +197,7 @@ Context Engineering over Prompt Engineering.
 
 > “People associate prompts with short task descriptions you'd give an LLM in your day-to-day use. When in every industrial-strength LLM app, context engineering is the delicate art and science of filling the context window with just the right information for the next step. Science because doing this right involves task descriptions and explanations, few shot examples, RAG, related (possibly multimodal) data, tools, state and history, compacting [...] > Doing this well is highly non-trivial. And art because of the guiding intuition around LLM psychology of people spirits.”
 
-> -- Andrej Karpathy
+                                                      - Andrej Karpathy
 
 ### 3.1 Prompt Templates
 
