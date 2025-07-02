@@ -207,10 +207,12 @@ Going forward... Context Engineering over Prompt Engineering.
 >
 > — **Andrej Karpathy**
 
+We concatenate the results from the retrieval and add them as part of the context when we instantiate the prompt template. By instructing the LLM to only refer to the context we can generate relevant and accurate responses for the user. 
+
 ### 3.1 Prompt Templates
 
 We leverage LangChain’s prompt templates to assemble the messages sent to the language model. These templates are both modular and reusable, so you can dynamically switch to a new prompt template, insert the user’s query, and any contextual information before invoking the LLM for the final response.
-
+ 
 > **Note (More Advanced):** Context engineering techniques such as defining the system role, adding delimiters, and providing example I/Os were used to improve the LLM’s response. Better context engineering lets less powerful, lower-cost models match the performance of more expensive ones.
 
 ## 4 Generation
@@ -281,6 +283,7 @@ You can download the *Attracting and Retaining Adolescent Patients* PDF here (if
 
 **To chat with the AI agent, run the following scripts from the command line:**
 
+**Stores Data (BM25 Tokenizer and Vector Embedder)**
 ```
 python3 bm25_tokenizer.py
 ```
@@ -289,6 +292,7 @@ python3 bm25_tokenizer.py
 python3 vector_embedder.py
 ```
 
+**Performs Retrieval, Prompt Augmentation, Generation (Runs a terminal-based chat interface for the AI Agent)**
 ```
 python3 user_query_document.py
 ```
