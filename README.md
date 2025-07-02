@@ -29,7 +29,7 @@ This project provides a simple AI agent with a CLI chat interface that answers q
   - [1.2 Vector Embedder](#12-vector-embedder)
     - [1.2.1 Embedding Model](#121-embedding-model)
     - [1.2.2 Vector Database](#122-vector-database)
-  - [1.3 Bm25 Tokenizer](#13-bm25-tokenizer)
+  - [1.3 BM25 Tokenizer](#13-bm25-tokenizer)
     - [1.3.1 Why BM25 instead of TF-IDF?](#131-why-bm25-instead-of-tf-idf)
     - [1.3.2 NLTK Tokenizer](#132-nltk-tokenizer)
     - [1.3.3 Pickle Index](#133-pickle-index)
@@ -37,7 +37,7 @@ This project provides a simple AI agent with a CLI chat interface that answers q
   - [2.1 Vector Retriever](#21-vector-retriever)
     - [2.1.1 Embedding Model](#211-embedding-model)
     - [2.1.2 Similarity Comparison Method](#212-similarity-comparison-method)
-  - [2.2 Bm25 Retriever](#22-bm25-retriever)
+  - [2.2 BM25 Retriever](#22-bm25-retriever)
     - [2.2.1 NER Keyword Expander](#221-ner-keyword-expander)
     - [2.2.2 Rank BM25](#222-rank-bm25)
 - [3 Prompt Augmentation](#3-prompt-augmentation)
@@ -47,7 +47,7 @@ This project provides a simple AI agent with a CLI chat interface that answers q
 
 ## What is LangChain?
 
-[LangChain](https://python.langchain.com/docs/introduction/) is a Python framework that lets you build LLM-powered applications by wiring together a set of modular components. For exmaple:
+[LangChain](https://python.langchain.com/docs/introduction/) is a Python framework that lets you build LLM-powered applications by wiring together a set of modular components. For example:
 
 - PromptTemplates: define reusable, fill-in-the-blank prompts so you never hand-craft raw strings.
 
@@ -103,7 +103,7 @@ We are currently using [Pinecone Vector Database](https://docs.pinecone.io/guide
 
 Before the vectors are upserted to Pinecone VDB, a unique “id” key for each text chunk is generated. This “id” key gets stored in the text chunk’s JSON object and the corresponding text embedding, so during the retrieval process the key is returned, and used to map to the text chunk. (This is explained in more detail in the Retrieval section.)
 
-### 1.3 Bm25 Tokenizer
+### 1.3 BM25 Tokenizer
 
 Okapi BM25 Retrieval is a keyword-based document retriever that improves on the Term Frequency-Inverse Document Frequency (TF-IDF) ranking algorithm. Term Frequency is the raw count of how many times word *t* appears in document *d*. Inverse Document Frequency is the number of documents *N* divided by the number of documents in which term *t* appears at least once *n<sub>t</sub>*. Therefore, more frequent words such as “the”, “and”, and “is” get less weight. The score of the document is calculated by multiplying TF by IDF.
 
@@ -121,7 +121,7 @@ Given a query Q, containing keywords q₁,...,qₙ, the BM25 score of a document
 - f(qᵢ, D): The raw count of how many times qᵢ appears in D.
 - k₁: TF-saturation parameter (≥ 0) that controls how quickly term frequency plateaus.
 - b: Length-normalization parameter (0 ≤ b ≤ 1) that adjusts for document length.
-- |D|: The length of document D (e.g. word count).
+- |D|: The length of document D (e.g., word count).
 - avgdl: The average document length across the corpus (same units as |D|).
 
 #### 1.3.1 Why BM25 instead of TF-IDF?
@@ -156,9 +156,9 @@ Pickle is a Python module that implements binary protocols for serializing and d
 
 ## 2 Retrieval
 
-Retrieval is necessary because the LLM does not have direct or up-to-date access to CSHA data, which is external to its pretraining or not reliably reacheable by its web search functions. LLMs have limited context windows, charge per input token, and struggle to prioritize relevant information in large inputs. Feeding entire PDFs can exceed the token limit, increase cost, and reduce accuracy.
+Retrieval is necessary because the LLM does not have direct or up-to-date access to CSHA data, which is external to its pretraining or not reliably reachable by its web search functions. LLMs have limited context windows, charge per input token, and struggle to prioritize relevant information in large inputs. Feeding entire PDFs can exceed the token limit, increase cost, and reduce accuracy.
 
-When a user submits a query to the chat interface, the system augments the prompt with relevant context using one of two retrieval methods: **vector-based retrieval** or **BM25 keyword retrieval**. Both retrievers return the top “k” documents' “id” keys. These “id”s are used to map to each document’s JSON object, so we can obtain the metadata along with the text chunk. (Pinecone VDB can only return one text field, either an “id” or “text_chunk”, so in order to access the metadata we use an “id” key for mapping.) Once the top "k" documents text chunks are retrieved from the JSON, they are combined and added to the user's query as context. Our code organizes the retrieval logic into a modular function, so you can easily switch between vector retrieval and BM25 retrieval as needed.
+When a user submits a query to the chat interface, the system augments the prompt with relevant context using one of two retrieval methods: **vector-based retrieval** or **BM25 keyword retrieval**. Both retrievers return the "id"s of the top k documents. These “id”s are used to map to each document’s JSON object, so we can obtain the metadata along with the text chunk. (Pinecone VDB can only return one text field, either an “id” or “text_chunk”, so in order to access the metadata we use an “id” key for mapping.) Once the top "k" document text chunks are retrieved from the JSON, they are combined and added to the user's query as context. Our code organizes the retrieval logic into a modular function, so you can easily switch between vector retrieval and BM25 retrieval as needed.
 
 **Example**
 
@@ -199,7 +199,7 @@ Text Document:
 
 #### 2.1.1 Embedding Model
 
-When the user feeds in their query, the input needs to be converted to a vector so that it can be compared with the vectors in the Pinecone VDB. The same Embedding Model used to create vector embeddings for the processed documents is used for the user queries.
+When the user submits their query, the input needs to be converted to a vector so that it can be compared with the vectors in the Pinecone VDB. The same Embedding Model used to create vector embeddings for the processed documents is used for the user queries.
 
 #### 2.1.2 Similarity Comparison Method
 
@@ -207,7 +207,7 @@ To retrieve the most relevant documents from Pinecone VDB we use semantic simila
 
 ![Cosine and Euclidean Metrics](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/cosine_and_euclidean_metrics.png)
 
-### 2.2 Bm25 Retriever
+### 2.2 BM25 Retriever
 
 #### 2.2.1 NER Keyword Expander
 
@@ -276,7 +276,7 @@ Here is the context:
 
 ## 4 Generation
 
-The final step of RAG is AI response generation. The completed prompt template is sent to an API (e.g. OpenAI’s API), which passes it as input to the AI model, and the model’s output is returned to the user.
+The final step of RAG is AI response generation. The completed prompt template is sent to an API (e.g., OpenAI’s API), which passes it as input to the AI model, and the model’s output is returned to the user.
 
 **Example**
 
