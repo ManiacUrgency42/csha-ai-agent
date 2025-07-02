@@ -23,7 +23,7 @@ This project provides a simple AI agent with a CLI chat interface that answers q
 
 ## Components
 
-- [What is LangChain?](#what-is-langchain?)
+- [What is LangChain?](#what-is-langchain)
 - [1 Backend](#1-backend)
   - [1.1 Data Processing](#11-data-processing)
     - [1.1.1 Parsers](#111-parsers)
