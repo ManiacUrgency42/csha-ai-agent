@@ -79,7 +79,7 @@ Indexers take the extracted text and its metadata, then organize the data into a
 
 **Example**    
 
-We first identify headings in the PDF—either by looking at their on-page positions (coordinates) or by using an ML model trained to recognize header text. Once we know each section and subsection heading, we split the document into text chunks based on those headings. Finally, we nest those chunks in a hierarchical structure so that every paragraph is stored under the correct section or subsection. This ensures that the text is stored logically to improve retrieval performance.
+We first identify headings in the PDF—either by looking at their on-page positions (coordinates) or by using an ML model trained to recognize header text. Once we know each section and subsection heading, we split the document into text chunks based on those headings. Finally, we nest those chunks in a hierarchical structure so that every paragraph is stored under the correct section or subsection. This ensures that the text is chunked and stored logically to improve retrieval performance.
 
 ![Example Structured JSON](https://github.com/ManiacUrgency42/csha-ai-agent/blob/main/assets/images/example_structured_json.png)
 
@@ -101,7 +101,7 @@ A Vector Database is a specialized database that has built-in mathematical funct
 
 We are currently using [Pinecone Vector Database](https://docs.pinecone.io/guides/get-started/overview) because of the easy setup and developer-friendly documentation.
 
-Before the vectors are upserted to Pinecone VDB, a unique “id” key for each text chunk is generated. This “id” key gets stored in the text chunk’s JSON object and the corresponding text embedding, so during the retrieval process the key is returned, and used to map to the text chunk in the JSON. Once the text chunks are retrieved from the JSON, they are combined and added to the user's query as context. 
+Before the vectors are upserted to Pinecone VDB, a unique “id” key for each text chunk is generated. This “id” key gets stored in the text chunk’s JSON object and the corresponding text embedding, so during the retrieval process the key is returned, and used to map to the text chunk. (This is explained in more detail in the Retrieval section.)
 
 ### 1.3 Bm25 Tokenizer
 
@@ -160,6 +160,39 @@ Retrieval is necessary because the LLM does not have direct or up-to-date access
 
 When a user submits a query to the chat interface, the system augments the prompt with relevant context using one of two retrieval methods: **vector-based retrieval** or **BM25 keyword retrieval**. Both retrievers return the top “k” documents' “id” keys. These “id”s are used to map to each document’s JSON object, so we can obtain the metadata along with the text chunk. (Pinecone VDB can only return one text field, either an “id” or “text_chunk”, so in order to access the metadata we use an “id” key for mapping.) Once the top "k" documents text chunks are retrieved from the JSON, they are combined and added to the user's query as context. Our code organizes the retrieval logic into a modular function, so you can easily switch between vector retrieval and BM25 retrieval as needed.
 
+**Example**
+
+```python
+query = "What are effective strategies for retaining adolescent patients?"
+retrieval_method = VECTOR_DB
+
+if retrieval_method == VECTOR_DB:
+  vector_docs = vector_retriever.retrieve(query)
+  print("vector_docs: ", vector_docs)
+else:
+  bm25_docs = bm25_retriever.retrieve(query)
+  print("bm25_docs: ", bm25_docs)
+```
+
+```python
+"""
+Text Document: 
+ <text> 'Adolescent-friendly' means that youth are at the table and know what health means to them… [Now as an adult], I don’t hesitate to go to community health centers, and that’s because I know health centers from my SBHC. I may not have the same connections with the staff and the environment. But at least, [my SBHC] increased my knowledge about health services and health, so I can seek the services that I need. - Former SBHC client and youth leader | Modesto, CA Historically, SBHCs have established a model of care that is youth-centered. By applying proactive strategies, SBHCs can commit to adolescent-friendly care despite the changing demands of policy and funding. SBHC providers and staff can continue to guarantee that a student’s visit to a health center is more than just a visit: it can be an informative, empowering, and a memorable moment that can impact a student’s future relationship to healthcare. </text>
+<reference>
+  <heading> A Commitment to Adolescent-Friendly Care </heading>
+  <heading_number> 8 </heading_number>
+</reference> 
+
+Text Document: 
+ <text> It is important to recognize that not all providers are comfortable working with teens or want to address teen issues. This is not a judgment, just a reality. If SBHCs are going to be successful serving teens, it is essential that they hire staff that want to work with teens. Health care providers should be trained in adolescent health and have experience working with youth.Experienced adolescent health providers can make the visit not only more comfortable but can also increase communication and understanding. </text>
+<reference>
+  <heading> Hire Health Care Providers Who Have Experience with Youth </heading>
+  <heading_number> 4 </heading_number>
+  <subheading_number> 1 </subheading_number>
+</reference> 
+"""
+```
+
 > **Note:** Choosing the best retrieval strategy is an ongoing research effort, as there are numerous retrieval techniques to explore—hybrid approaches, which blend the semantic power of vector embeddings with the precision of BM25 keyword scoring, are just one example.
 
 ### 2.1 Vector Retriever
@@ -193,7 +226,7 @@ name, famous, speech, MLK, title, designation, well-known, renowned, address, ta
 
 #### 2.2.2 Rank BM25
 
-Uses Okapi BM25 to retrieve the top “k” most relevant document and returns their “id” keys.
+Uses Okapi BM25 to retrieve the top “k” most relevant document “id” keys.
 
 ## 3 Prompt Augmentation
 
@@ -214,12 +247,10 @@ We concatenate the results from the retrieval and add them as part of the contex
 ### 3.1 Prompt Templates
 
 We leverage LangChain’s prompt templates to assemble the messages sent to the language model. These templates are both modular and reusable, so you can dynamically switch to a new prompt template, insert the user’s query, and any contextual information before invoking the LLM for the final response.
- 
-> **Note (More Advanced):** Context engineering techniques such as defining the system role, adding delimiters, and providing example I/Os were used to improve the LLM’s response. Better context engineering lets less powerful, lower-cost models match the performance of more expensive ones.
+
+> **Note: (More Advanced)** Context engineering techniques such as defining the system role, adding delimiters, and providing example I/Os were used to improve the LLM’s response. Better context engineering lets less powerful, lower-cost models match the performance of more expensive ones.
 
 ## 4 Generation
-
-The final step of RAG is AI response generation. The completed prompt template is sent to an API (e.g. OpenAI’s API), which passes it as input to the AI model, and the model’s output is returned to the user.
 
 ### 4.1 Models
 
@@ -285,7 +316,7 @@ You can download the *Attracting and Retaining Adolescent Patients* PDF here (if
 
 **To chat with the AI agent, run the following scripts from the command line:**
 
-**Stores Data (BM25 Tokenizer and Vector Embedder)**
+Stores Data (BM25 Tokenizer and Vector Embedder)
 ```
 python3 bm25_tokenizer.py
 ```
@@ -294,7 +325,7 @@ python3 bm25_tokenizer.py
 python3 vector_embedder.py
 ```
 
-**Performs Retrieval, Prompt Augmentation, Generation (Runs a terminal-based chat interface for the AI Agent)**
+Performs Retrieval, Prompt Augmentation, Generation (Runs a terminal-based chat interface for the AI Agent)
 ```
 python3 user_query_document.py
 ```
