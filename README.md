@@ -59,6 +59,8 @@ This project provides a simple AI agent with a CLI chat interface that answers q
 
 ## 1 Backend
 
+The backend handles data processing and storage. When working with large-scale data, organizing it logically in a data store can significantly improve retrieval accuracy and reduce latency. For vector retrieval, logically organizing data into well-structured chunks with metadata allows for more accurate embeddings, efficient ID-to-text mapping, and fast metadata filtering. For BM25 keyword retrieval, breaking text into logical chunks ensures that word counts are calculated within the correct context, which improves match quality, and makes it faster to search only the most relevant parts of the data.
+
 ### 1.1 Data Processing
 
 Parsers and Indexers work together closely and can often be combined into one Python file.
@@ -99,7 +101,7 @@ A Vector Database is a specialized database that has built-in mathematical funct
 
 We are currently using [Pinecone Vector Database](https://docs.pinecone.io/guides/get-started/overview) because of the easy setup and developer-friendly documentation.
 
-Before the vectors are upserted to Pinecone VDB, a unique “id” key for each text chunk is generated. This “id” key gets stored in the text chunk’s JSON object and the corresponding text embedding, so during the retrieval process the key is returned, and used to map to the text chunk. (This is explained in more detail in the Retrieval section.)
+Before the vectors are upserted to Pinecone VDB, a unique “id” key for each text chunk is generated. This “id” key gets stored in the text chunk’s JSON object and the corresponding text embedding, so during the retrieval process the key is returned, and used to map to the text chunk in the JSON. Once the text chunks are retrieved, they are combined and added to the user's query as context. 
 
 ### 1.3 Bm25 Tokenizer
 
@@ -154,7 +156,7 @@ Pickle is a Python module that implements binary protocols for serializing and d
 
 ## 2 Retrieval
 
-When a user submits a query to the chat interface, the system augments the prompt with relevant content using one of two retrieval methods: vector-based retrieval or BM25 keyword retrieval. Our code organizes the retrieval logic into a modular function, so you can easily switch between vector retrieval and BM25 retrieval as needed.
+When a user submits a query to the chat interface, the system augments the prompt with relevant content using one of two retrieval methods: **vector-based retrieval** or **BM25 keyword retrieval**. Both retrievers return the top “k” documents' “id” keys. These “id”s are used to map to each document’s JSON object, so we can obtain the metadata along with the text chunk. (Pinecone VDB can only return one text field, either an “id” or “text_chunk”, so in order to access the metadata we use an “id” key for mapping.) Once the top "k" documents are retrieved, they are combined and added to the user's query as context. Our code organizes the retrieval logic into a modular function, so you can easily switch between vector retrieval and BM25 retrieval as needed.
 
 > **Note:** Choosing the best retrieval strategy is an ongoing research effort, as there are numerous retrieval techniques to explore—hybrid approaches, which blend the semantic power of vector embeddings with the precision of BM25 keyword scoring, are just one example.
 
@@ -193,7 +195,9 @@ Uses Okapi BM25 to retrieve the top “k” most relevant document and returns t
 
 ## 3 Prompt Augmentation
 
-Context Engineering over Prompt Engineering.
+A prompt is a text input that tells an AI model (LLM) what response or output to generate. For example, when you ask ChatGPT a question you are prompting it. 
+
+Going forward... Context Engineering over Prompt Engineering.
 
 > “People associate prompts with short task descriptions you'd give an LLM in your day-to-day use.  
 > When in every industrial-strength LLM app, context engineering is the delicate art and science of filling the context window with just the right information for the next step.  
@@ -207,9 +211,11 @@ Context Engineering over Prompt Engineering.
 
 We leverage LangChain’s prompt templates to assemble the messages sent to the language model. These templates are both modular and reusable, so you can dynamically switch to a new prompt template, insert the user’s query, and any contextual information before invoking the LLM for the final response.
 
-> **Note:** Context engineering techniques such as defining the system role, adding delimiters, and providing example I/Os were used to improve the LLM’s response. Better context engineering lets less powerful, lower-cost models match the performance of more expensive ones.
+> **Note (More Advanced):** Context engineering techniques such as defining the system role, adding delimiters, and providing example I/Os were used to improve the LLM’s response. Better context engineering lets less powerful, lower-cost models match the performance of more expensive ones.
 
 ## 4 Generation
+
+The final step of RAG is AI response generation. The completed prompt template is sent to an API (e.g. OpenAI’s API), which passes it as input to the AI model, and the model’s output is returned to the user.
 
 ### 4.1 Models
 
