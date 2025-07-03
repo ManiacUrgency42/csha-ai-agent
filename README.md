@@ -7,6 +7,10 @@
 
 - [About](#about)
 - [RAG Architecture](#rag-architecture)
+  - [1 Backend](#1-backend)
+  - [2 Retrieval](#2-retrieval)
+  - [3 Prompt Augmentation](#3-prompt-augmentation)
+  - [4 Generation](#4-generation)
 - [Installation and Usage](#installation-and-usage)
   - [Dependencies](#dependencies)
   - [Environment Variables](#environment-variables)
