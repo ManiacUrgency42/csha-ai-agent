@@ -30,8 +30,9 @@ This project provides a simple AI agent with a CLI chat interface that answers q
 - [What is LangChain?](#what-is-langchain)
 - [1 Backend](#1-backend)
   - [1.1 Data Processing](#11-data-processing)
-    - [1.1.1 Parsers](#111-parsers)
-    - [1.1.2 Indexers](#112-indexers)
+    - [1.1.1 JSON Data Schema](#111-json-data-schema)
+    - [1.1.2 Parsers](#112-parsers)
+    - [1.1.3 Indexers](#113-indexers)
   - [1.2 Vector Embedder](#12-vector-embedder)
     - [1.2.1 Embedding Model](#121-embedding-model)
     - [1.2.2 Vector Database](#122-vector-database)
@@ -71,9 +72,44 @@ For vector retrieval, logically organizing data into well-structured chunks with
 
 ### 1.1 Data Processing
 
+#### 1.1.1 JSON Data Schema
+
+Even if a field (e.g. "text" or "subsubheadings") has no content, still emit its key with a blank value so the `bm25_tokenizer` and `vector_embedder` can correctly parse the JSON schema. See `output/structured_text.json` in the GitHub repo for an example.
+
+All processed document data must follow this JSON structure:
+
+```json
+{
+  "headings": [
+    {
+      "heading_number": "<number>",
+      "heading_title": "<heading_title>",
+      "text": "<text>",
+      "subheadings": [
+        {
+          "subheading_number": "<number>",
+          "subheading_title": "<subheading_title>",
+          "text": "<text>",
+          "subsubheadings": [
+            {
+              "subsubheading_number": "<number>",
+              "subsubheading_title": "<subsubheading_title>",
+              "text": "<text>"
+            }
+            // …additional subsubheadings…
+          ]
+        }
+        // …additional subheadings…
+      ]
+    }
+    // …additional headings…
+  ]
+}
+```
+
 Parsers and Indexers work together closely and can often be combined into one Python file.
 
-#### 1.1.1 Parsers
+#### 1.1.2 Parsers
 
 Parsers extract text and metadata from data formats such as PDF, images, tables, and charts. Choosing a parsing tool depends on the data format and the complexity of the data (i.e., Does the data format contain large tables, pie-charts, mathematical formulas that need to be extracted?).
 
@@ -81,7 +117,7 @@ Parsers extract text and metadata from data formats such as PDF, images, tables,
 
 Text in standard-format PDFs can be extracted with rule-based tools such as PDFminer.six, while unstructured PDFs—where text appears in tables or images—often require ML-based tools like PaddleOCR. ML approaches are more robust but demand greater setup effort and expertise compared to simpler methods.
 
-#### 1.1.2 Indexers
+#### 1.1.3 Indexers
 
 Indexers take the extracted text and its metadata, then organize the data into a data format such as JSON.
 
