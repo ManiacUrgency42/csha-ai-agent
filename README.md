@@ -74,7 +74,7 @@ For vector retrieval, logically organizing data into well-structured chunks with
 
 #### 1.1.1 JSON Data Schema
 
-Even if a field (e.g. "text" or "subsubheadings") has no content, still emit its key with a blank value so the `bm25_tokenizer` and `vector_embedder` can correctly parse the JSON schema. See `output/structured_text.json` in the GitHub repo for an example.
+Even if a field (e.g. "text" or "subsubheadings") has no content, still include its key with a blank value so the `bm25_tokenizer` and `vector_embedder` can correctly parse the JSON schema. See `output/structured_text.json` in the GitHub repo for an example.
 
 All processed document data must follow this JSON structure:
 
