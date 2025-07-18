@@ -85,6 +85,8 @@ All processed document data must follow this JSON structure:
       "heading_number": "<number>",
       "heading_title": "<heading_title>",
       "text": "<text>",
+      "url": "<url>",
+      "page": "<page>",
       "subheadings": [
         {
           "subheading_number": "<number>",
