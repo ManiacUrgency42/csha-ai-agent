@@ -90,11 +90,15 @@ All processed document data must follow this JSON structure:
           "subheading_number": "<number>",
           "subheading_title": "<subheading_title>",
           "text": "<text>",
+          "url": "<url>",
+          "page": "<page>",
           "subsubheadings": [
             {
               "subsubheading_number": "<number>",
               "subsubheading_title": "<subsubheading_title>",
               "text": "<text>"
+              "url": "<url>",
+              "page": "<page>",
             }
             // …additional subsubheadings…
           ]
