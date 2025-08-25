@@ -374,35 +374,7 @@ pip3 install -r requirements.txt
 ## Environment Variables
 
 **Good news — you don’t need to create Pinecone or OpenAI accounts.**  
-Project‑scoped API keys are already provided for testing; you only have to set them in your shell (or a `.env` file) before running the scripts.
-
-<details>
-<summary><strong>Quick setup for macOS / Linux (bash/zsh)</strong></summary>
-
-```bash
-export PINECONE_API_KEY="pcsk_3c1tKo_QmNHRR9YXWiqXwD6dPdYPhPAgquiu7utSpfUaBu9mMqkgNnSQQT7rYdhKBTSrkx"
-export OPENAI_API_EMBEDDINGS_KEY="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"
-export OPENAI_API_QUERY_KEY="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"
-```
-</details>
-
-<details>
-<summary><strong>Quick setup for Windows (PowerShell)</strong></summary>
-
-```powershell
-setx PINECONE_API_KEY "pcsk_3c1tKo_QmNHRR9YXWiqXwD6dPdYPhPAgquiu7utSpfUaBu9mMqkgNnSQQT7rYdhKBTSrkx"
-setx OPENAI_API_EMBEDDINGS_KEY "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"
-setx OPENAI_API_QUERY_KEY "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"
-```
-</details>
-
-**Prefer a `.env` file?** Create one in the project root:
-
-```env
-PINECONE_API_KEY=pcsk_3c1tKo_QmNHRR9YXWiqXwD6dPdYPhPAgquiu7utSpfUaBu9mMqkgNnSQQT7rYdhKBTSrkx
-OPENAI_API_EMBEDDINGS_KEY=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
-OPENAI_API_QUERY_KEY=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
-```
+Project‑scoped API keys are already provided for testing; you only have to set them in your shell (or a `.env` file) before running the scripts. Let me know if you need them (leonard.jin.0707@gmail.com).
 
 ## Run the Agent
 
